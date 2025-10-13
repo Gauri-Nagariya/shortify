@@ -64,7 +64,7 @@ PORT=4000
 url-shortener/
 ├── frontend/      # React frontend
 ├── backend/      # Express backend
-├── README.html
+├── README.md
   </pre>
 
   <h2>License</h2>
