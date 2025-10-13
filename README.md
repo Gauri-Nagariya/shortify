@@ -61,7 +61,7 @@ PORT=4000
 
   <h2>Folder Structure</h2>
   <pre>
-url-shortener/
+shortify/
 ├── frontend/      # React frontend
 ├── backend/      # Express backend
 ├── README.md
