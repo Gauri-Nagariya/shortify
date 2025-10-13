@@ -5,6 +5,8 @@ import ShortUrl from "../models/short_url.model.js";
 
 const router = express.Router();
 
+const BASE_URL = process.env.VITE_BACKEND_URL || "http://localhost:4000";
+
 // ---------------------------
 // CREATE a short URL
 // ---------------------------
@@ -27,7 +29,8 @@ router.post("/", async (req, res, next) => {
       full_url: newShortUrl.full_url,
       short_url: newShortUrl.short_url,
       clicks: newShortUrl.clicks,
-       short_link: `http://localhost:4000/${shortCode}` // send full short URL
+      //  short_link: `http://localhost:4000/${shortCode}` // send full short URL
+      short_link: `${BASE_URL}/${shortCode}`,
     });
   } catch (err) {
     if (err.code === 11000) {
