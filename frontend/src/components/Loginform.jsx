@@ -1,174 +1,7 @@
-// // import React, { useState, useContext } from "react";
-// // import axios from "axios";
-// // import { toast } from "react-toastify";
-// // import { AppContext } from "../context/AppContext";
-
-// // const Loginform = () => {
-// //   const { setShowLogin, setUser } = useContext(AppContext);
-// //   const backendUrl = import.meta.env.VITE_BACKEND_URL;
-
-// //   const [User_name, setUser_name] = useState("");
-// //   const [Email, setEmail] = useState("");
-// //   const [Password, setPassword] = useState("");
-
-// //   const onSubmitHandler = async (e) => {
-// //     e.preventDefault();
-
-// //     try {
-// //       const { data } = await axios.post(`${backendUrl}/api/login`, {
-// //         User_name, // matches backend schema
-// //         Email,
-// //         Password,
-// //       });
-
-// //       if (data._id) { // backend returns the saved user object
-// //         toast.success("Login successful!");
-// //         setUser(data);
-// //         localStorage.setItem("user", JSON.stringify(data));
-// //         setShowLogin(false);
-// //       } else {
-// //         toast.error("Login failed!");
-// //       }
-// //     } catch (error) {
-// //       console.error(error);
-// //       toast.error("Backend not reachable or something went wrong");
-// //     }
-// //   };
-
-// //   return (
-// //     <div className="fixed inset-0 bg-black/30 backdrop-blur-sm flex justify-center items-center">
-// //       <form
-// //         onSubmit={onSubmitHandler}
-// //         className="bg-white p-8 rounded-xl shadow-md w-[300px]"
-// //       >
-// //         <h2 className="text-xl font-bold text-center mb-4">Login</h2>
-
-// //         <input
-// //           type="text"
-// //           value={User_name}
-// //           onChange={(e) => setUser_name(e.target.value)}
-// //           placeholder="Username"
-// //           className="w-full border p-2 rounded mb-3"
-// //           required
-// //         />
-
-// //         <input
-// //           type="email"
-// //           value={Email}
-// //           onChange={(e) => setEmail(e.target.value)}
-// //           placeholder="Email"
-// //           className="w-full border p-2 rounded mb-3"
-// //           required
-// //         />
-
-// //         <input
-// //           type="password"
-// //           value={Password}
-// //           onChange={(e) => setPassword(e.target.value)}
-// //           placeholder="Password"
-// //           className="w-full border p-2 rounded mb-3"
-// //           required
-// //         />
-
-// //         <button className="w-full bg-blue-600 text-white py-2 rounded">
-// //           Login
-// //         </button>
-
-// //         <span
-// //           onClick={() => setShowLogin(false)}
-// //           className="absolute top-4 right-5 text-lg cursor-pointer"
-// //         >
-// //           ✕
-// //         </span>
-// //       </form>
-// //     </div>
-// //   );
-// // };
-
-// // export default Loginform;
-
-
-// import React, { useState, useContext } from "react";
-// import { AppContext } from "../context/AppContext";
-
-// const Loginform = () => {
-//   const { setShowLogin, loginUser, signupUser } = useContext(AppContext);
-
-//   const [state, setState] = useState("Login"); // "Login" or "SignUp"
-//   const [User_name, setUser_name] = useState("");
-//   const [Email, setEmail] = useState("");
-//   const [Password, setPassword] = useState("");
-
-//   const onSubmitHandler = (e) => {
-//     e.preventDefault();
-//     if (state === "Login") {
-//       loginUser(Email, Password);
-//     } else {
-//       signupUser(User_name, Email, Password);
-//     }
-//   };
-
-//   return (
-//     <div className="fixed inset-0 bg-black/30 backdrop-blur-sm flex justify-center items-center">
-//       <form onSubmit={onSubmitHandler} className="bg-white p-8 rounded-xl shadow-md w-[300px] relative">
-//         <h2 className="text-xl font-bold text-center mb-4">{state}</h2>
-
-//         {state !== "Login" && (
-//           <input
-//             type="text"
-//             placeholder="Full Name"
-//             value={User_name}
-//             onChange={(e) => setUser_name(e.target.value)}
-//             className="w-full border p-2 rounded mb-3"
-//             required
-//           />
-//         )}
-
-//         <input
-//           type="email"
-//           placeholder="Email"
-//           value={Email}
-//           onChange={(e) => setEmail(e.target.value)}
-//           className="w-full border p-2 rounded mb-3"
-//           required
-//         />
-//         <input
-//           type="password"
-//           placeholder="Password"
-//           value={Password}
-//           onChange={(e) => setPassword(e.target.value)}
-//           className="w-full border p-2 rounded mb-3"
-//           required
-//         />
-
-//         <button className="w-full bg-blue-600 text-white py-2 rounded">
-//           {state === "Login" ? "Login" : "Sign Up"}
-//         </button>
-
-//         <p className="mt-3 text-center text-sm cursor-pointer text-blue-600"
-//            onClick={() => setState(state === "Login" ? "SignUp" : "Login")}>
-//           {state === "Login" ? "Don't have an account? Sign Up" : "Already have an account? Login"}
-//         </p>
-
-// <span
-//           onClick={() => setShowLogin(false)}
-//           className="absolute top-4 right-5 text-lg cursor-pointer"
-//         >
-//           ✕
-//         </span>
-//         {/* <span onClick={() => setShowLogin(false)} className="absolute top-4 right-4 cursor-pointer text-lg">✕</span> */}
-        
-//       </form>
-//     </div>
-//   );
-// };
-
-// export default Loginform;
-
-
-
 import React, { useState, useContext } from "react";
 import { AppContext } from "../context/AppContext";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 const Loginform = () => {
   const { setShowLogin, loginUser, registerUser } = useContext(AppContext);
@@ -187,77 +20,102 @@ const Loginform = () => {
   };
 
   return (
-    <div>
-      <form
-        onSubmit={onSubmitHandler}
-        className="bg-white p-10 rounded-xl text-slate-500 relative"
-      >
-        <h1 className="text-center text-2xl font-medium">{state}</h1>
+    // <div className="position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex align-items-center justify-content-center">
+    <div
+  className="position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex align-items-center justify-content-center"
+  style={{ zIndex: 1050 }}  // ✅ Added this line
+>
+      <div className="card shadow-lg border-0" style={{ width: "22rem" }}>
+        <div className="card-body p-4 position-relative">
+          {/* Close Button */}
+          <button
+            onClick={() => setShowLogin(false)}
+            type="button"
+            className="btn-close position-absolute top-0 end-0 m-3"
+            aria-label="Close"
+          ></button>
 
-        {state !== "Login" && (
-          <input
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            type="text"
-            placeholder="Full Name"
-            className="w-full border p-2 rounded mb-3"
-            required
-          />
-        )}
+          {/* Title */}
+          <h3 className="text-center text-primary fw-bold mb-4">
+            {state === "Login" ? "Login" : "Create Account"}
+          </h3>
 
-        <input
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          type="email"
-          placeholder="Email"
-          className="w-full border p-2 rounded mb-3"
-          required
-        />
+          {/* Form */}
+          <form onSubmit={onSubmitHandler}>
+            {state !== "Login" && (
+              <div className="mb-3">
+                <label className="form-label fw-semibold">Full Name</label>
+                <input
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className="form-control"
+                  placeholder="Enter your name"
+                  required
+                />
+              </div>
+            )}
 
-        <input
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          type="password"
-          placeholder="Password"
-          className="w-full border p-2 rounded mb-3"
-          required
-        />
+            <div className="mb-3">
+              <label className="form-label fw-semibold">Email</label>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="form-control"
+                placeholder="Enter your email"
+                required
+              />
+            </div>
 
-        <button className="w-full bg-blue-600 text-white py-2 rounded mb-3">
-          {state === "Login" ? "Login" : "Sign Up"}
-        </button>
+            <div className="mb-3">
+              <label className="form-label fw-semibold">Password</label>
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="form-control"
+                placeholder="Enter your password"
+                required
+              />
+            </div>
 
-        <p className="text-center text-sm">
-          {state === "Login" ? (
-            <>
-              Don't have an account?{" "}
-              <span
-                className="text-blue-600 cursor-pointer"
-                onClick={() => setState("SignUp")}
-              >
-                Sign Up
-              </span>
-            </>
-          ) : (
-            <>
-              Already have an account?{" "}
-              <span
-                className="text-blue-600 cursor-pointer"
-                onClick={() => setState("Login")}
-              >
-                Login
-              </span>
-            </>
-          )}
-        </p>
+            <button
+              type="submit"
+              className="btn btn-primary w-100 fw-semibold py-2"
+            >
+              {state === "Login" ? "Login" : "Sign Up"}
+            </button>
+          </form>
 
-        <span
-          onClick={() => setShowLogin(false)}
-          className="absolute top-3 right-3 cursor-pointer"
-        >
-          ✕
-        </span>
-      </form>
+          {/* Switch Form Type */}
+          <div className="text-center mt-3">
+            {state === "Login" ? (
+              <p className="text-muted">
+                Don’t have an account?{" "}
+                <span
+                  className="text-primary fw-semibold"
+                  role="button"
+                  onClick={() => setState("SignUp")}
+                >
+                  Sign Up
+                </span>
+              </p>
+            ) : (
+              <p className="text-muted">
+                Already have an account?{" "}
+                <span
+                  className="text-primary fw-semibold"
+                  role="button"
+                  onClick={() => setState("Login")}
+                >
+                  Login
+                </span>
+              </p>
+            )}
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

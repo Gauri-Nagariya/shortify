@@ -1,47 +1,8 @@
-// import React from "react";
-// import { Link } from "react-router-dom";
-// import { AppContext } from "../context/AppContext";
-// import { useContext } from "react";
-
-// const Navbar = () => {
-
-//       const { setShowLogin } = useContext(AppContext);
-    
-//   return (
-//     <nav className="bg-blue-600 w-full text-white px-6 py-4 flex justify-between items-center">
-//       {/* Logo / Brand */}
-//       <div className="text-xl font-bold">
-//         <Link to="/">MyApp</Link>
-//       </div>
-
-//       {/* Navigation Links */}
-//       <div className="space-x-6">
-//         <Link to="/" className="hover:text-gray-200">
-//           Home
-//         </Link>
-//         <Link to="/create" className="hover:text-gray-200">
-//           Create Company
-//         </Link>
-//         <Link to="/about" className="hover:text-gray-200">
-//           About
-//         </Link>
-//     <button
-//       onClick={() => setShowLogin(true)}
-//       className="bg-blue-600 text-white px-4 py-2 rounded"
-//       >
-//       Login
-//     </button>
-//       </div>
-//     </nav>
-//   );
-// };
-
-// export default Navbar;
-
-
 import React, { useContext, useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 const Navbar = () => {
   const { user, setShowLogin, logout } = useContext(AppContext);
@@ -56,51 +17,90 @@ const Navbar = () => {
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   return (
-    <nav className="bg-blue-600 text-white px-6 py-4 flex justify-between items-center w-full">
-      {/* Logo */}
-      <div className="text-xl font-bold">
-        <Link to="/">MyApp</Link>
-      </div>
+    <nav className="navbar navbar-expand-lg bg-body-tertiary shadow-sm">
+      <div className="container-fluid">
+        {/* Brand */}
+        <Link className="navbar-brand fw-bold text-primary " to="/">
+          Shortify
+        </Link>
 
-      {/* Links */}
-      <div className="flex items-center space-x-4">
-        <Link to="/" className="hover:text-gray-200">Home</Link>
-        <Link to="/create" className="hover:text-gray-200">Create Url</Link>
+        {/* Mobile Toggle Button */}
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
 
-        {/* Login / Profile button */}
-        {!user ? (
-          <button
-            onClick={() => setShowLogin(true)}
-            className="bg-white text-blue-600 px-4 py-2 rounded-4xl"
-          >
-            Login / Sign Up
-          </button>
-        ) : (
-          <div className="relative" ref={dropdownRef}>
-            <button
-              onClick={() => setDropdownOpen(!dropdownOpen)}
-              className="bg-white text-blue-600 px-4 py-2 rounded-4xl"
-            >
-              Hey, {user.User_name}
-            </button>
-            {dropdownOpen && (
-              <div className="">
-                <button
-                  onClick={logout}
-                  className="absolute right-0 mt-2 bg-white text-black shadow block px-4 py-2 w-26 text-center hover:bg-gray-100 rounded"
-                >
-                  Logout
-                </button>
-              </div>
-            )}
-          </div>
+        {/* Navbar Links */}
+        <div className="collapse navbar-collapse" id="navbarNav">
+          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+            <li className="nav-item">
+              <Link className="nav-link" to="/">
+                Home
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/create">
+                Create URL
+              </Link>
+            </li>
+            {/* <li className="nav-item">
+              <Link className="nav-link" to="/about">
+                About
+              </Link>
+            </li> */}
+          </ul>
+
+          {/* Right Side (Login/Profile) */}
+          {/* <div className="d-flex align-items-center mr-4" ref={dropdownRef}> */}
+         <div className="d-flex align-items-center me-2" ref={dropdownRef}>
+  {!user ? (
+    <button
+      onClick={() => setShowLogin(true)}
+      className="btn btn-outline-primary px-3"
+    >
+      Login / Sign Up
+    </button>
+  ) : (
+    <div className="dropdown">
+      {/* Use relative position container to control dropdown width */}
+      <div className="d-inline-block" style={{ minWidth: '160px' }}>
+        <button
+          className="btn btn-primary dropdown-toggle w-100"
+          type="button"
+          onClick={() => setDropdownOpen(!dropdownOpen)}
+        >
+          Hey, {user.User_name}
+        </button>
+
+        {dropdownOpen && (
+          <ul className="dropdown-menu dropdown-menu-end show" style={{ width: '100%' }}>
+            <li>
+              <button
+                className="dropdown-item btn w-100"
+                onClick={logout}
+              >
+                Logout
+              </button>
+            </li>
+          </ul>
         )}
+      </div>
+    </div>
+  )}
+</div>
+
+        </div>
       </div>
     </nav>
   );

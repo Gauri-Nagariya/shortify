@@ -42,15 +42,15 @@ const UrlContextProvider = ({ children }) => {
   );
 };
 
-const getClicks = async (shortCode) => {
-  try {
-    const { data } = await axios.get(`${backendUrl}/api/${shortCode}`);
-    return data.clicks; // your backend should return { clicks: X }
-  } catch (err) {
-    console.error(err);
-    return 0;
-  }
-};
+// const getClicks = async (shortCode) => {
+//   try {
+//     const { data } = await axios.get(`${backendUrl}/api/${shortCode}`);
+//     return data.clicks; // your backend should return { clicks: X }
+//   } catch (err) {
+//     console.error(err);
+//     return 0;
+//   }
+// };
 
 
 export default UrlContextProvider;

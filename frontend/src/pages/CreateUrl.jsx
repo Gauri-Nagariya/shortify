@@ -1,16 +1,18 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useRef } from "react";
 import { toast } from "react-toastify";
 import { AppContext } from "../context/AppContext";
 import { UrlContext } from "../context/UrlContext";
 import { QRCodeSVG } from "qrcode.react";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const CreateUrl = () => {
   const { user } = useContext(AppContext);
   const { createUrl } = useContext(UrlContext);
 
   const [url, setUrl] = useState("");
-  const [shortUrl, setShortUrl] = useState(null); // store full object
+  const [shortUrl, setShortUrl] = useState(null);
   const [copied, setCopied] = useState(false);
+  const qrRef = useRef(null);
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
@@ -37,64 +39,116 @@ const CreateUrl = () => {
     }
   };
 
+  // 🆕 Function to download QR code as PNG
+  const handleDownloadQR = () => {
+    const svg = qrRef.current.querySelector("svg");
+    const serializer = new XMLSerializer();
+    const svgData = serializer.serializeToString(svg);
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
+    const img = new Image();
+
+    const svgBlob = new Blob([svgData], { type: "image/svg+xml;charset=utf-8" });
+    const url = URL.createObjectURL(svgBlob);
+
+    img.onload = () => {
+      canvas.width = img.width;
+      canvas.height = img.height;
+      ctx.drawImage(img, 0, 0);
+      URL.revokeObjectURL(url);
+
+      const pngUrl = canvas.toDataURL("image/png");
+      const downloadLink = document.createElement("a");
+      downloadLink.href = pngUrl;
+      downloadLink.download = "qr-code.png";
+      document.body.appendChild(downloadLink);
+      downloadLink.click();
+      document.body.removeChild(downloadLink);
+    };
+
+    img.src = url;
+  };
+
   return (
-    <form onSubmit={onSubmitHandler} className="space-y-4">
-      <div>
-        <label
-          htmlFor="url"
-          className="block text-sm font-medium text-gray-700 mb-1"
-        >
-          Enter your URL
-        </label>
-        <input
-          type="url"
-          id="url"
-          value={url}
-          onChange={(e) => setUrl(e.target.value)}
-          placeholder="https://example.com"
-          required
-          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
+    <div className="container mt-5">
+      <div className="row justify-content-center">
+        <div className="col-lg-6 col-md-8">
+          <div className="card shadow-sm border-0 p-4">
+            <h2 className="text-center text-primary mb-4">
+              Create Short URL
+            </h2>
+
+            <form onSubmit={onSubmitHandler}>
+              <div className="mb-3">
+                <label htmlFor="url" className="form-label fw-semibold">
+                  Enter your URL
+                </label>
+                <input
+                  type="url"
+                  id="url"
+                  value={url}
+                  onChange={(e) => setUrl(e.target.value)}
+                  placeholder="https://example.com"
+                  required
+                  className="form-control form-control-lg"
+                />
+              </div>
+
+              <button
+                type="submit"
+                className="btn btn-success w-100 btn-lg fw-semibold"
+              >
+                Shorten URL
+              </button>
+            </form>
+
+            {shortUrl && (
+              <div className="mt-5">
+                <h5 className="fw-semibold mb-3 text-center">
+                  Your Shortened URL
+                </h5>
+
+                <div className="input-group mb-3">
+                  <input
+                    type="text"
+                    readOnly
+                    value={shortUrl.short_link}
+                    className="form-control bg-light"
+                  />
+                  <button
+                    onClick={handleCopy}
+                    type="button"
+                    className={`btn ${
+                      copied ? "btn-success" : "btn-outline-secondary"
+                    }`}
+                  >
+                    {copied ? "Copied!" : "Copy"}
+                  </button>
+                </div>
+
+                <p className="text-muted text-center mb-4">
+                  Total Clicks: <strong>{shortUrl.clicks || 0}</strong>
+                </p>
+
+                <div className="text-center" ref={qrRef}>
+                  <h6 className="fw-semibold mb-2">QR Code</h6>
+                  <QRCodeSVG value={shortUrl.short_link} size={150} />
+                  <div className="mt-3">
+                    <button
+                      type="button"
+                      onClick={handleDownloadQR}
+                      className="btn btn-primary"
+                    >
+                      Download QR
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
       </div>
-
-      <button
-        type="submit"
-        className="w-full bg-green-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50"
-      >
-        Shorten URL
-      </button>
-
-    {shortUrl && (
-  <div className="mt-6">
-    <h2 className="text-lg font-semibold mb-2">Your shortened URL:</h2>
-    <div className="flex items-center mb-2">
-      <input
-        type="text"
-        readOnly
-        value={shortUrl.short_link}
-        className="flex-1 p-2 border border-gray-300 rounded-l-md bg-gray-50"
-      />
-      <button
-        onClick={handleCopy}
-        type="button"
-        className={`px-4 py-2 rounded-r-md transition-colors duration-200 ${
-          copied ? "bg-green-500 text-white hover:bg-green-600" : "bg-gray-200 hover:bg-gray-300"
-        }`}
-      >
-        {copied ? "Copied!" : "Copy"}
-      </button>
     </div>
-
-    <p>Clicks: {shortUrl.clicks || 0}</p>
-
-    <div className="mt-4">
-      <h3 className="text-md font-medium mb-2">QR Code:</h3>
-      <QRCodeSVG value={shortUrl.short_link} size={150} />
-    </div>
-  </div>
-)}
-
-    </form>
   );
 };
 
