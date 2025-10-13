@@ -72,7 +72,11 @@ const app = express();
 const PORT = process.env.PORT || 4000;
 
 app.use(express.json());
-app.use(cors());
+// app.use(cors());
+app.use(cors({
+  origin: ["https://shortify-two.vercel.app"], // allow frontend domain
+  credentials: true,
+}));
 
 // POST route to create short URL
 app.use("/api/create", UrlRoutes);
