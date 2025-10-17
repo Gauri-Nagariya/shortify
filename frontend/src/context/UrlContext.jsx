@@ -16,7 +16,7 @@ const UrlContextProvider = ({ children }) => {
     }
 
     try {
-      const { data } = await axios.post(`${backendUrl}/create`, urlData, {
+      const { data } = await axios.post(`${backendUrl}/api/create`, urlData, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
