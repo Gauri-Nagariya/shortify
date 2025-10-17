@@ -5,7 +5,7 @@ import ShortUrl from "../models/short_url.model.js";
 
 const router = express.Router();
 
-const BASE_URL = process.env.VITE_BACKEND_URL || "http://localhost:4000";
+const BASE_URL = process.env.VITE_BACKEND_URL || "http://localhost:4000/api"; //api is added
 
 // ---------------------------
 // CREATE a short URL
@@ -43,21 +43,21 @@ router.post("/", async (req, res, next) => {
 // ---------------------------
 // REDIRECT from short URL
 // ---------------------------
-// router.get("/:short_url", async (req, res, next) => {
-//   try {
-//     const { short_url } = req.params;
-//     const url = await ShortUrl.findOneAndUpdate(
-//       { short_url },
-//       { $inc: { clicks: 1 } },
-//       { new: true }
-//     );
+router.get("/:short_url", async (req, res, next) => {
+  try {
+    const { short_url } = req.params;
+    const url = await ShortUrl.findOneAndUpdate(
+      { short_url },
+      { $inc: { clicks: 1 } },
+      { new: true }
+    );
 
-//     if (!url) return res.status(404).json({ msg: "Short URL not found" });
+    if (!url) return res.status(404).json({ msg: "Short URL not found" });
 
-//     res.redirect(url.full_url);
-//   } catch (err) {
-//     next(err);
-//   }
-// });
+    res.redirect(url.full_url);
+  } catch (err) {
+    next(err);
+  }
+});
 
 export default router;
