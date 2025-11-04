@@ -16,41 +16,43 @@ const UrlContextProvider = ({ children }) => {
     }
 
     try {
+      
+      console.log("📤 Sending request to:", `${backendUrl}/api/create`);
+      console.log("📦 Request body:", urlData);
+
       const { data } = await axios.post(`${backendUrl}/api/create`, urlData, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
+      console.log("✅ Backend response:", data);
+
       if (data.short_link) {
-        // this matches what your backend sends
         toast.success("Short URL created successfully!");
-        console.log("Created Short URL:", data);
-        return data; // ✅ return the URL so frontend can display it
+        return data;
       } else {
         toast.error("Failed to create short URL");
         return null;
       }
-      
-   } catch (error) {
-  console.error(error);
-  toast.error("Something went wrong while creating the short URL");
-  return null;
-}
+
+    } catch (error) {
+      console.error("❌ Create URL error:", error);
+
+      // More detailed feedback
+      const backendMsg =
+        error.response?.data?.error ||
+        error.response?.data?.message ||
+        error.message;
+
+      toast.error(`Failed to create short URL: ${backendMsg}`);
+      return null;
+    }
   };
 
   return (
-    <UrlContext.Provider value={{ createUrl }}>{children}</UrlContext.Provider>
+    <UrlContext.Provider value={{ createUrl }}>
+      {children}
+    </UrlContext.Provider>
   );
 };
-
-// const getClicks = async (shortCode) => {
-//   try {
-//     const { data } = await axios.get(`${backendUrl}/api/${shortCode}`);
-//     return data.clicks; // your backend should return { clicks: X }
-//   } catch (err) {
-//     console.error(err);
-//     return 0;
-//   }
-// };
-
 
 export default UrlContextProvider;
