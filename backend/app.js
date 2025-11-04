@@ -74,7 +74,9 @@ const PORT = process.env.PORT || 4000;
 app.use(express.json());
 // app.use(cors());
 app.use(cors({
-  origin: ["https://shortify-br5c-9xrq1d6az-gauris-projects-0309a127.vercel.app"], // allow frontend domain
+  origin: ["https://shortify-qrqjzg2te-gauris-projects-0309a127.vercel.app"], // allow frontend domain
+   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true,
 }));
 
