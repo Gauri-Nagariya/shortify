@@ -23,11 +23,10 @@ const Loginform = () => {
     // <div className="position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex align-items-center justify-content-center">
     <div
   className="position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex align-items-center justify-content-center"
-  style={{ zIndex: 1050 }}  // ✅ Added this line
+  style={{ zIndex: 1050 }}  
 >
       <div className="card shadow-lg border-0" style={{ width: "22rem" }}>
         <div className="card-body p-4 position-relative">
-          {/* Close Button */}
           <button
             onClick={() => setShowLogin(false)}
             type="button"
@@ -35,12 +34,10 @@ const Loginform = () => {
             aria-label="Close"
           ></button>
 
-          {/* Title */}
           <h3 className="text-center text-primary fw-bold mb-4">
             {state === "Login" ? "Login" : "Create Account"}
           </h3>
 
-          {/* Form */}
           <form onSubmit={onSubmitHandler}>
             {state !== "Login" && (
               <div className="mb-3">
@@ -88,7 +85,6 @@ const Loginform = () => {
             </button>
           </form>
 
-          {/* Switch Form Type */}
           <div className="text-center mt-3">
             {state === "Login" ? (
               <p className="text-muted">
