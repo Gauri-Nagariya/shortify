@@ -4,7 +4,6 @@ import "react-toastify/dist/ReactToastify.css";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Loginform from "./components/Loginform";
 import { AppContext } from "./context/AppContext";
-// import CreateUrlpage from "./pages/CreateUrl";
 import Home from "./pages/Home";
 import Navbar from "./components/Navbar";
 import ProtectedRoute from "./route/ProtectedRoute";
@@ -16,11 +15,7 @@ const App = () => {
       <Navbar />
       <ToastContainer position="bottom-right" /> {showLogin && <Loginform />}
       <Routes>
-        <Route path="/" element={<Home />} /> {/* Protected route */}
-        {/* <Route
-          path="/create"
-          element={user ? <CreateCompanyPage /> : <Navigate to="/" />}
-        />{" "} */}
+        <Route path="/" element={<Home />} />
       <Route
     path='/create'
     element={
