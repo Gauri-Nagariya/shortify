@@ -8,7 +8,6 @@ export const UrlContext = createContext();
 const UrlContextProvider = ({ children }) => {
   const { token, backendUrl, user } = useContext(AppContext);
 
-  // ✅ Create short URL function
   const createUrl = async (urlData) => {
     if (!user) {
       toast.error("Please login before creating a short URL!");
@@ -17,14 +16,14 @@ const UrlContextProvider = ({ children }) => {
 
     try {
       
-      console.log("📤 Sending request to:", `${backendUrl}/api/create`);
-      console.log("📦 Request body:", urlData);
+      console.log("Sending request to:", `${backendUrl}/api/create`);
+      console.log("Request body:", urlData);
 
       const { data } = await axios.post(`${backendUrl}/api/create`, urlData, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
-      console.log("✅ Backend response:", data);
+      console.log("Backend response:", data);
 
       if (data.short_link) {
         toast.success("Short URL created successfully!");
@@ -35,9 +34,8 @@ const UrlContextProvider = ({ children }) => {
       }
 
     } catch (error) {
-      console.error("❌ Create URL error:", error);
+      console.error("Create URL error:", error);
 
-      // More detailed feedback
       const backendMsg =
         error.response?.data?.error ||
         error.response?.data?.message ||
