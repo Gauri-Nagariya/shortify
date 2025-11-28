@@ -10,15 +10,14 @@ const Home = () => {
 
   const handleGetStarted = () => {
     if (user) {
-      navigate("/create"); // ✅ Go to Create Page if logged in
+      navigate("/create"); 
     } else {
-      setShowLogin(true); // ✅ Open Login form if not logged in
+      setShowLogin(true); 
     }
   };
 
   return (
     <div className="container py-5 text-center">
-      {/* Hero Section */}
       <div className="bg-light p-5 rounded-4 shadow-sm">
         <h1 className="display-5 fw-bold text-primary mb-3">
           Shorten URLs & Generate QR Codes Instantly
@@ -27,7 +26,6 @@ const Home = () => {
           Secure, fast, and trackable links for all your needs.
         </p>
 
-        {/* Call-to-Action */}
         <div className="d-flex justify-content-center">
           <button
             onClick={handleGetStarted}
@@ -38,9 +36,7 @@ const Home = () => {
         </div>
       </div>
 
-      {/* Features Section */}
       <div className="row mt-5">
-        {/* Feature 1 */}
         <div className="col-md-4 mb-3">
           <div className="card border-0 shadow-sm h-100">
             <div className="card-body">
@@ -52,7 +48,6 @@ const Home = () => {
           </div>
         </div>
 
-        {/* Feature 2 - Download QR Codes */}
         <div className="col-md-4 mb-3">
           <div className="card border-0 shadow-sm h-100">
             <div className="card-body">
@@ -64,7 +59,6 @@ const Home = () => {
           </div>
         </div>
 
-        {/* Feature 3 */}
         <div className="col-md-4 mb-3">
           <div className="card border-0 shadow-sm h-100">
             <div className="card-body">
