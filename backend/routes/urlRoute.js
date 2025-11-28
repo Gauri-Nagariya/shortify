@@ -1,4 +1,3 @@
-// routes/urlRoute.js
 import express from "express";
 import { nanoid } from "nanoid";
 import ShortUrl from "../models/short_url.model.js";
@@ -7,9 +6,6 @@ const router = express.Router();
 
 const BASE_URL = process.env.VITE_BACKEND_URL || "http://localhost:4000";
 
-// ---------------------------
-// CREATE a short URL
-// ---------------------------
 router.post("/", async (req, res, next) => {
   try {
     const { full_url, userId } = req.body;
@@ -29,7 +25,6 @@ router.post("/", async (req, res, next) => {
       full_url: newShortUrl.full_url,
       short_url: newShortUrl.short_url,
       clicks: newShortUrl.clicks,
-      //  short_link: `http://localhost:4000/${shortCode}` // send full short URL
       short_link: `${BASE_URL}/${shortCode}`,
     });
   } catch (err) {
@@ -40,9 +35,6 @@ router.post("/", async (req, res, next) => {
   }
 });
 
-// ---------------------------
-// REDIRECT from short URL
-// ---------------------------
 router.get("/:short_url", async (req, res, next) => {
   try {
     const { short_url } = req.params;
