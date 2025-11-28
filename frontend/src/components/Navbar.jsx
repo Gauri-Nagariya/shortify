@@ -9,7 +9,6 @@ const Navbar = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef();
 
-  // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -23,12 +22,10 @@ const Navbar = () => {
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary shadow-sm">
       <div className="container-fluid">
-        {/* Brand */}
         <Link className="navbar-brand fw-bold text-primary " to="/">
           Shortify
         </Link>
 
-        {/* Mobile Toggle Button */}
         <button
           className="navbar-toggler"
           type="button"
@@ -41,7 +38,6 @@ const Navbar = () => {
           <span className="navbar-toggler-icon"></span>
         </button>
 
-        {/* Navbar Links */}
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
@@ -54,15 +50,8 @@ const Navbar = () => {
                 Create URL
               </Link>
             </li>
-            {/* <li className="nav-item">
-              <Link className="nav-link" to="/about">
-                About
-              </Link>
-            </li> */}
           </ul>
 
-          {/* Right Side (Login/Profile) */}
-          {/* <div className="d-flex align-items-center mr-4" ref={dropdownRef}> */}
          <div className="d-flex align-items-center me-2" ref={dropdownRef}>
   {!user ? (
     <button
@@ -73,7 +62,6 @@ const Navbar = () => {
     </button>
   ) : (
     <div className="dropdown">
-      {/* Use relative position container to control dropdown width */}
       <div className="d-inline-block" style={{ minWidth: '160px' }}>
         <button
           className="btn btn-primary dropdown-toggle w-100"
