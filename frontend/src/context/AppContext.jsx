@@ -1,21 +1,3 @@
-// // AppContext.jsx
-// import { createContext, useState } from "react";
-
-// export const AppContext = createContext();
-
-// const AppContextProvider = ({ children }) => {
-//   const [user, setUser] = useState(
-//     JSON.parse(localStorage.getItem("user")) || null
-//   );
-//   const [showLogin, setShowLogin] = useState(false);
-
-//   const value = { user, setUser, showLogin, setShowLogin };
-
-//   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
-// };
-
-// export default AppContextProvider;
-
 import { createContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
@@ -25,7 +7,6 @@ export const AppContext = createContext();
 const AppContextProvider = ({ children }) => {
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
-  // ✅ Load saved user & token from localStorage (for persistence)
   const [user, setUser] = useState(() => {
     const savedUser = localStorage.getItem("user");
     return savedUser ? JSON.parse(savedUser) : null;
@@ -34,7 +15,6 @@ const AppContextProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem("token") || null);
   const [showLogin, setShowLogin] = useState(false);
 
-  // ✅ LOGIN
   const loginUser = async (email, password) => {
     try {
       const { data } = await axios.post(`${backendUrl}/api/login`, {
@@ -60,7 +40,6 @@ const AppContextProvider = ({ children }) => {
     }
   };
 
-  // ✅ REGISTER
   const registerUser = async (name, email, password) => {
     try {
       const { data } = await axios.post(`${backendUrl}/api/register`, {
@@ -85,7 +64,6 @@ const AppContextProvider = ({ children }) => {
     }
   };
 
-  // ✅ LOGOUT
   const logout = () => {
     setUser(null);
     setToken(null);
@@ -94,7 +72,6 @@ const AppContextProvider = ({ children }) => {
     toast.info("Logged out!");
   };
 
-  // ✅ Optional: auto-fetch user data from backend if token exists
   useEffect(() => {
     const fetchUser = async () => {
       if (token && !user) {
