@@ -10,7 +10,7 @@ const shortUrlSchema = new mongoose.Schema({
     type: String,
     required: true,
     unique: true,
-    index: true,// helps fast searching document in mongodb by indexing by creating a b-tree(not seching juts get it by index)
+    index: true,
   },
   clicks: {
     type: Number,
