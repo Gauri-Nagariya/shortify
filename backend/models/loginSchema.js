@@ -1,10 +1,8 @@
-// models/loginSchema.js
 import mongoose from 'mongoose';
 
 const { Schema } = mongoose;
 
 const loginSchema = new Schema({
-    // Basic Details
     User_name: {
         type: String,
         required: true,
