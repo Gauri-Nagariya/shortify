@@ -39,7 +39,6 @@ const CreateUrl = () => {
     }
   };
 
-  // 🆕 Function to download QR code as PNG
   const handleDownloadQR = () => {
     const svg = qrRef.current.querySelector("svg");
     const serializer = new XMLSerializer();
@@ -125,10 +124,6 @@ const CreateUrl = () => {
                     {copied ? "Copied!" : "Copy"}
                   </button>
                 </div>
-
-                {/* <p className="text-muted text-center mb-4">
-                  Total Clicks: <strong>{shortUrl.clicks || 0}</strong>
-                </p> */}
 
                 <div className="text-center" ref={qrRef}>
                   <h6 className="fw-semibold mb-2">QR Code</h6>
